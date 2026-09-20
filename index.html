@@ -1056,6 +1056,8 @@
             opt.textContent = `${s.date} — ${s.title} (${s.total_messages || 0} msgs)`;
             dropdown.appendChild(opt);
           });
+          dropdown.value = streams[0].id;
+          loadSupabaseStream(streams[0].id);
         }
       } catch (err) {
         console.error("fetchSupabaseStreams error:", err);
