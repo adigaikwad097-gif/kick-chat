@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     :root {
       --kick-green: #53fc18;
@@ -533,6 +534,13 @@
       <div class="brand-subtitle">Timeline VOD Clipper for Arjun</div>
     </div>
 
+    <div style="display:flex; align-items:center; gap:8px;">
+      <span style="font-size:11.5px; font-weight:700; color:var(--kick-green); letter-spacing:0.5px;">📺 STREAM:</span>
+      <select id="stream-dropdown" style="background:#060809; color:#fff; border:1px solid rgba(255,255,255,0.2); padding:7px 12px; border-radius:6px; font-size:13px; font-weight:600; cursor:pointer; max-width:320px; outline:none;">
+        <option value="127741621">2026-09-17 — Freefire LIveLive (40 chats)</option>
+      </select>
+    </div>
+
     <div class="url-bar-container">
       <input 
         type="text" 
@@ -1018,9 +1026,84 @@
       }
     });
 
+    // Supabase Integration
+    const SUPABASE_URL = "https://qzqpofjsikohjecpwaew.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF6cXBvZmpzaWtvaGplY3B3YWV3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgwNDgzMzYsImV4cCI6MjA5MzYyNDMzNn0.qmk86fXpfYUSIN8YbPYFukdGn_SYqvvVBXObYFgH9kQ";
+    let supabaseClient = null;
+    if (window.supabase && typeof window.supabase.createClient === "function") {
+      supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    }
+
+    async function fetchSupabaseStreams() {
+      if (!supabaseClient) return;
+      try {
+        const { data: streams, error } = await supabaseClient
+          .from("kick_streams")
+          .select("*")
+          .order("start_time", { ascending: false });
+        
+        if (error) {
+          console.warn("Supabase streams error:", error);
+          return;
+        }
+
+        if (streams && streams.length > 0) {
+          const dropdown = document.getElementById("stream-dropdown");
+          dropdown.innerHTML = "";
+          streams.forEach(s => {
+            const opt = document.createElement("option");
+            opt.value = s.id;
+            opt.textContent = `${s.date} — ${s.title} (${s.total_messages || 0} msgs)`;
+            dropdown.appendChild(opt);
+          });
+        }
+      } catch (err) {
+        console.error("fetchSupabaseStreams error:", err);
+      }
+    }
+
+    async function loadSupabaseStream(streamId) {
+      if (!supabaseClient) return;
+      showToast("Loading stream chat from database...");
+      try {
+        const { data: msgs, error } = await supabaseClient
+          .from("kick_chat_messages")
+          .select("*")
+          .eq("stream_id", streamId)
+          .order("offset_seconds", { ascending: true });
+        
+        if (error) throw error;
+        if (msgs && msgs.length > 0) {
+          currentMessages = msgs.map(m => ({
+            id: m.id,
+            offsetSeconds: m.offset_seconds,
+            timestamp: m.timestamp,
+            clockTime: m.clock_time,
+            username: m.username,
+            color: m.color || getRandomKickColor(m.username),
+            level: "35",
+            isSub: true,
+            isMod: (m.username === "Nova_77a"),
+            content: m.content || ""
+          }));
+          renderChatList();
+          showToast(`Loaded ${currentMessages.length} messages from database!`);
+        } else {
+          showToast("No messages found for this stream.");
+        }
+      } catch (err) {
+        showToast("Error loading stream: " + err.message);
+      }
+    }
+
+    document.getElementById("stream-dropdown").addEventListener("change", (e) => {
+      loadSupabaseStream(e.target.value);
+    });
+
     // Initial render
-    window.addEventListener("DOMContentLoaded", () => {
+    window.addEventListener("DOMContentLoaded", async () => {
       renderChatList();
+      await fetchSupabaseStreams();
     });
   </script>
 </body>
