@@ -565,6 +565,10 @@
       <input type="text" id="search-filter-input" class="search-input-box" placeholder="🔍 Search chat (e.g. roast, bhai, sub)...">
     </div>
 
+    <label style="font-size:12px; color:var(--kick-muted); display:flex; align-items:center; gap:6px; cursor:pointer; user-select:none;">
+      <input type="checkbox" id="chk-show-badges"> Show Badges (Level / Sub)
+    </label>
+
     <div class="meta-stat">
       <span>Total: <strong id="stat-total">40</strong> messages</span>
       <span>•</span>
@@ -669,6 +673,13 @@
     ];
 
     let currentMessages = [...defaultMessages];
+    let showBadges = false;
+
+    // Badges toggle listener
+    document.getElementById("chk-show-badges").addEventListener("change", (e) => {
+      showBadges = e.target.checked;
+      renderChatList();
+    });
 
     function formatTime(secs) {
       if (isNaN(secs) || secs < 0) secs = 0;
@@ -740,18 +751,24 @@
         row.className = "kick-msg-row";
         row.id = `chat-row-${msg.id}`;
 
+        // Optional badges if user specifically toggles them on
+        let badgesHtml = "";
+        if (showBadges) {
+          if (msg.level) badgesHtml += `<span class="badge badge-level">${msg.level}</span>`;
+          if (msg.isSub) badgesHtml += `<span class="badge badge-sub"></span>`;
+          if (msg.isMod) badgesHtml += `<span class="badge badge-mod">${modIconSvg}</span>`;
+        }
+
         row.innerHTML = `
           <div class="msg-actions">
-            <button class="act-btn" onclick="copyRowPng('${msg.id}', false)">📸 Copy PNG</button>
-            <button class="act-btn" onclick="copyRowPng('${msg.id}', true)">🖼️ Dark Box</button>
+            <button class="act-btn" onclick="copyRowPng('${msg.id}', false)">📋 Copy White PNG</button>
+            <button class="act-btn" onclick="copyRowPng('${msg.id}', true)">🖤 Copy Dark PNG</button>
           </div>
 
           <span class="timestamp-tag" onclick="highlightRow('${msg.id}')" title="Click to highlight">${msg.timestamp}</span>
           
           <div class="msg-body">
-            <span class="badge badge-level">${msg.level || '35'}</span>
-            <span class="badge badge-sub"></span>
-            ${msg.isMod ? `<span class="badge badge-mod">${modIconSvg}</span>` : ''}
+            ${badgesHtml}
             <span class="kick-username" style="color: ${msg.color};">${msg.username}</span><span class="kick-colon">:</span>
             <span class="kick-text">${formatMessageContent(msg.content)}</span>
           </div>
@@ -828,13 +845,13 @@
             await navigator.clipboard.write([
               new ClipboardItem({ "image/png": blob })
             ]);
-            showToast("📸 Copied 3x Retina PNG to Clipboard! Paste in CapCut (Ctrl+V / Cmd+V)");
+            showToast(darkBox ? "🖤 Copied Dark PNG to Clipboard! Paste in CapCut (Ctrl+V / Cmd+V)" : "📋 Copied White PNG to Clipboard! Paste in CapCut (Ctrl+V / Cmd+V)");
           } catch (e) {
             const a = document.createElement("a");
             a.href = URL.createObjectURL(blob);
-            a.download = `kick_chat_${id}.png`;
+            a.download = `kick_chat_${darkBox ? 'dark' : 'white'}_${id}.png`;
             a.click();
-            showToast("💾 Downloaded PNG!");
+            showToast(darkBox ? "💾 Downloaded Dark PNG!" : "💾 Downloaded White PNG!");
           }
         });
       } catch (err) {
