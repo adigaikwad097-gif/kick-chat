@@ -1,0 +1,121 @@
+{
+  "stream": {
+    "id": "127092955",
+    "uuid": "0876b621-0366-4af0-91d5-5a2c7d9fdbb2",
+    "title": "Ganpati Decoration IRL",
+    "date": "2026-09-13",
+    "start_time": "2026-09-13T11:27:45+00:00",
+    "duration_seconds": 1709,
+    "total_messages": 9
+  },
+  "messages": [
+    {
+      "id": "45192be1-791b-43d7-b27d-0786ec3c6812",
+      "stream_id": "127092955",
+      "offset_seconds": 123,
+      "timestamp": "00:02:03",
+      "clock_time": "04:59:48 PM",
+      "username": "Ichhapurti_gaming",
+      "color": "#BDFF28",
+      "badges": "[]",
+      "content": "lala kick bhi chalu kar diya achhi bat hai",
+      "created_at": "2026-09-13T11:29:48+00:00"
+    },
+    {
+      "id": "697a42a1-a9c4-462e-9703-fae9bfbb5faa",
+      "stream_id": "127092955",
+      "offset_seconds": 144,
+      "timestamp": "00:02:24",
+      "clock_time": "05:00:09 PM",
+      "username": "draken_0_9",
+      "color": "#00F1FF",
+      "badges": "[]",
+      "content": "[emote:37217:Bwop]",
+      "created_at": "2026-09-13T11:30:09+00:00"
+    },
+    {
+      "id": "04093a15-c10a-41e7-b024-597a2fafdd78",
+      "stream_id": "127092955",
+      "offset_seconds": 152,
+      "timestamp": "00:02:32",
+      "clock_time": "05:00:17 PM",
+      "username": "draken_0_9",
+      "color": "#00F1FF",
+      "badges": "[]",
+      "content": "[emote:4148076:HaHaa]",
+      "created_at": "2026-09-13T11:30:17+00:00"
+    },
+    {
+      "id": "d7df208c-c51c-4cac-843c-38eff06185f9",
+      "stream_id": "127092955",
+      "offset_seconds": 1383,
+      "timestamp": "00:23:03",
+      "clock_time": "05:20:48 PM",
+      "username": "Mind_Gaming_18",
+      "color": "#E4D88F",
+      "badges": "[]",
+      "content": "Landscape madhe ठेव mobile mute aahe",
+      "created_at": "2026-09-13T11:50:48+00:00"
+    },
+    {
+      "id": "0fd0ac95-771e-49b8-ac30-4c7b3c1362c5",
+      "stream_id": "127092955",
+      "offset_seconds": 1504,
+      "timestamp": "00:25:04",
+      "clock_time": "05:22:49 PM",
+      "username": "Mind_Gaming_18",
+      "color": "#E4D88F",
+      "badges": "[]",
+      "content": "landscape is best",
+      "created_at": "2026-09-13T11:52:49+00:00"
+    },
+    {
+      "id": "2a01a3f7-e12c-4321-ab58-86fab0321cf3",
+      "stream_id": "127092955",
+      "offset_seconds": 1581,
+      "timestamp": "00:26:21",
+      "clock_time": "05:24:06 PM",
+      "username": "Mind_Gaming_18",
+      "color": "#E4D88F",
+      "badges": "[]",
+      "content": "right to lest",
+      "created_at": "2026-09-13T11:54:06+00:00"
+    },
+    {
+      "id": "8cdf29b7-480f-4898-aeab-4a810b91f533",
+      "stream_id": "127092955",
+      "offset_seconds": 1630,
+      "timestamp": "00:27:10",
+      "clock_time": "05:24:55 PM",
+      "username": "Mind_Gaming_18",
+      "color": "#E4D88F",
+      "badges": "[]",
+      "content": "ok",
+      "created_at": "2026-09-13T11:54:55+00:00"
+    },
+    {
+      "id": "8e7758e6-d418-4deb-b8f9-b9280ce5079d",
+      "stream_id": "127092955",
+      "offset_seconds": 1673,
+      "timestamp": "00:27:53",
+      "clock_time": "05:25:38 PM",
+      "username": "Mind_Gaming_18",
+      "color": "#E4D88F",
+      "badges": "[]",
+      "content": "stream  landscape  kar केल्या camera nahi",
+      "created_at": "2026-09-13T11:55:38+00:00"
+    },
+    {
+      "id": "a775e741-19d5-4f4f-b79b-ecbf8b8b99a6",
+      "stream_id": "127092955",
+      "offset_seconds": 1713,
+      "timestamp": "00:28:33",
+      "clock_time": "05:26:18 PM",
+      "username": "Mind_Gaming_18",
+      "color": "#E4D88F",
+      "badges": "[]",
+      "content": "1 dat to go",
+      "created_at": "2026-09-13T11:56:18+00:00"
+    }
+  ]
+}
